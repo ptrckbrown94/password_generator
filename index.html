@@ -33,16 +33,28 @@
             //forloop 0 to passlength 
             //forloop taken from  https://www.w3schools.com/js/js_loop_for.asp
             let i;
-            for (i = 0; i < passLength; i++) 
-            {
+            for (i = 0; i < passLength; i++) {
+                let newChar;
                 //choice random letter collection
-               let characterSetIndex= Math.random() 
+                let characterSetIndex = getRandomInt(4) 
+                if(characterSetIndex === 0){
+                    //select from numbers
+                  newChar = numbers[getRandomInt]  
+                } 
+                else if(characterSetIndex === 1){
+
+                }
                 //choice random index in array
                 //choice is appended to password
 
             }
          
-            
+        }
+
+        //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+        function getRandomInt(max) {
+
+            return Math.floor(Math.random() * Math.floor(max));
         }
 
         //numbers array
