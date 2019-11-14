@@ -13,27 +13,50 @@
 
 <body>
 
+    <!--found combo box from stackoverflow https://stackoverflow.com/questions/14614702/html-combo-box-with-option-to-type-an-entry-->
+    <select name="example">
+        <option value="Special characters">Special characters</option>
+        <option value="Numeric characters">Numeric characters</option>
+        <option value="Lowercase characters">Lowercase characters</option>
+        <option value="Uppercase characters">Uppercase characters</option>
+    </select>
 
-
-
+    <input type="text" name="other">
+    <button onclick="randomPassword">Generate Password</button>
 
 
     <script>
-        function randomPassword(){
-            Math.random 
+        function randomPassword() {
+            //validate text box has 8-128 numbers
+            //read character set selection in combo box
+            //produce random password
+            //forloop 0 to passlength 
+            //forloop taken from  https://www.w3schools.com/js/js_loop_for.asp
+            let i;
+            for (i = 0; i < passLength; i++) 
+            {
+                //choice random letter collection
+               let characterSetIndex= Math.random() 
+                //choice random index in array
+                //choice is appended to password
+
+            }
+         
+            
         }
 
-        //generate numbers, array
-        const numbers =["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
-        //generate upper case letters, array
-        const lowerCase =["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-        //generate lower case letters, array
-        const upperCase =["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-        //generate special characters, array
-        const specialCharacters=["!", "@", "$", "%", "&"];
+        //numbers array
+        const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+        //upper case array
+        const lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+        //lower case array
+        const upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+        //special characters array
+        const specialCharacters = ["!", "@", "$", "%", "&"];
         //make password length ( 8 characters - 126 characters)
-        //  
-
+        let passLength = 8
+        //text box for length of password
+        let passwordResult; 
 
     </script>
 </body>
