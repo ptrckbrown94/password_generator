@@ -22,7 +22,7 @@
     </select>
 
     <input type="text" name="other">
-    <button onclick="randomPassword()">Generate Password</button>
+    <button onclick="randomPassword(20, true,true,false,true)">Generate Password</button>
 
 
     <script type="text/javascript">
@@ -31,7 +31,7 @@
 
 
 
-            function randomPassword() {
+            function randomPassword( passLength, hasNumbers,hasLower, hasUpper, hasSpecial) {
                 console.log("calling random password");
                 //numbers array
                 const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
@@ -42,7 +42,7 @@
                 //special characters array
                 const specialCharacters = ["!", "@", "$", "%", "&"];
                 //make password length ( 8 characters - 126 characters)
-                let passLength = 538;
+                //let passLength = 538;
                 //text box for length of password
                 let passwordResult = "";
 
@@ -52,8 +52,8 @@
                 //forloop 0 to passlength 
                 //forloop taken from  https://www.w3schools.com/js/js_loop_for.asp
                 let i; 
-                for (i = 0; i < passLength; i++) {
-                    let newChar = "a"; 
+                for (i = 0; passwordResult.length < passLength; i++) {
+                    let newChar = ""; 
                     //choice random letter collection
                     let characterSetIndex = getRandomInt(4)
                     if (characterSetIndex === 0) {
@@ -65,7 +65,9 @@
                     }
 
                     else if (characterSetIndex === 2) {
-                        newChar = upperCase[getRandomInt(26)]
+                        if (hasUpper){
+                            newChar = upperCase[getRandomInt(26)]
+                        }
                     }
 
                     else if (characterSetIndex === 3) {
@@ -74,12 +76,8 @@
                     //choice random index in array
                     //choice is appended to password
                     passwordResult = passwordResult + newChar;
-                    console.log(passwordResult);
+                    console.log(passwordResult, passwordResult.length);
                 }
-
-
-
-
 
             } window.randomPassword = randomPassword;
 

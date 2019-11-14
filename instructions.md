@@ -15,7 +15,7 @@ The user will be prompted to choose from the following password criteria:
   * Numeric characters
 
   * Lowercase characters
-
+    
   * Uppercase characters
 
 The application should validate user input and ensure that at least one character type is selected.
