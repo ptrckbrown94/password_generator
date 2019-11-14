@@ -12,17 +12,37 @@
 </head>
 
 <body>
+    <div class="container">
 
-    <!--found combo box from stackoverflow https://stackoverflow.com/questions/14614702/html-combo-box-with-option-to-type-an-entry-->
-    <select name="example">
-        <option value="Special characters">Special characters</option>
-        <option value="Numeric characters">Numeric characters</option>
-        <option value="Lowercase characters">Lowercase characters</option>
-        <option value="Uppercase characters">Uppercase characters</option>
-    </select>
+        <div>
+            <div class="col-12 justify-content-center">
+                <header>Generate Password</header>
+            </div>
+        </div>
 
-    <input type="text" name="other">
-    <button onclick="randomPassword(20, true,true,false,true)">Generate Password</button>
+        <form action="/action_page.php">
+            <input type="checkbox" name="vehicle1" value="Bike">Numbers<br>
+            <input type="checkbox" name="vehicle2" value="Car">Lower Case<br>
+            <input type="checkbox" name="vehicle2" value="Car">Upper Case<br>
+            <input type="checkbox" name="vehicle2" value="Car">special characters<br>
+            <input type="submit" value="Generate Password">
+        </form>
+        
+        <!--Jumbotron from Bootstrap-->
+        <div class="jumbotron jumbotron-fluid">
+                <div class="row">
+                  <h1 class="display-4">New Password</h1>
+                  <p class="lead">New Password</p>
+                </div>
+              </div>
+
+
+        <input type="text" name="other">
+        <button onclick="checkParams()">Generate Password</button>
+
+
+    </div>
+
 
 
     <script type="text/javascript">
@@ -31,7 +51,9 @@
 
 
 
-            function randomPassword( passLength, hasNumbers,hasLower, hasUpper, hasSpecial) {
+
+
+            function randomPassword(passLength, hasNumbers, hasLower, hasUpper, hasSpecial) {
                 console.log("calling random password");
                 //numbers array
                 const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
@@ -42,7 +64,7 @@
                 //special characters array
                 const specialCharacters = ["!", "@", "$", "%", "&"];
                 //make password length ( 8 characters - 126 characters)
-                //let passLength = 538;
+
                 //text box for length of password
                 let passwordResult = "";
 
@@ -51,27 +73,32 @@
                 //produce random password
                 //forloop 0 to passlength 
                 //forloop taken from  https://www.w3schools.com/js/js_loop_for.asp
-                let i; 
+                let i;
                 for (i = 0; passwordResult.length < passLength; i++) {
-                    let newChar = ""; 
+                    let newChar = "";
                     //choice random letter collection
                     let characterSetIndex = getRandomInt(4)
+
                     if (characterSetIndex === 0) {
                         //select from numbers
                         newChar = numbers[getRandomInt(10)]
                     }
                     else if (characterSetIndex === 1) {
-                        newChar = lowerCase[getRandomInt(26)]
+                        if (hasUpper) {
+                            newChar = lowerCase[getRandomInt(26)]
+                        }
                     }
 
                     else if (characterSetIndex === 2) {
-                        if (hasUpper){
+                        if (hasUpper) {
                             newChar = upperCase[getRandomInt(26)]
                         }
                     }
 
                     else if (characterSetIndex === 3) {
-                        newChar = specialCharacters[getRandomInt(5)]
+                        if (specialCharacters) {
+                            newChar = specialCharacters[getRandomInt(5)]
+                        }
                     }
                     //choice random index in array
                     //choice is appended to password
@@ -79,14 +106,26 @@
                     console.log(passwordResult, passwordResult.length);
                 }
 
-            } window.randomPassword = randomPassword;
+            }
 
+            function checkParams() {
+                //get the users inputs
+                const userLength = 9//user input
+                const userWantsNumbers = true //checkbox for special character
+                const userWantsLower = true
+                const userWantsUpper = true
+                const userWantsSpecial = true
+                randomPassword(userLength, userWantsNumbers, userWantsLower, userWantsUpper, userWantsSpecial)
+            }
+
+            window.randomPassword = randomPassword;
+            window.checkParams = checkParams;
             //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
             function getRandomInt(max) {
                 return Math.floor(Math.random() * Math.floor(max));
             } window.getRandomInt = getRandomInt;
 
-        }  init();
+        } init();
     </script>
 </body>
 
