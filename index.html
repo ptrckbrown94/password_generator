@@ -22,54 +22,73 @@
     </select>
 
     <input type="text" name="other">
-    <button onclick="randomPassword">Generate Password</button>
+    <button onclick="randomPassword()">Generate Password</button>
 
 
-    <script>
-        function randomPassword() {
-            //validate text box has 8-128 numbers
-            //read character set selection in combo box
-            //produce random password
-            //forloop 0 to passlength 
-            //forloop taken from  https://www.w3schools.com/js/js_loop_for.asp
-            let i;
-            for (i = 0; i < passLength; i++) {
-                let newChar;
-                //choice random letter collection
-                let characterSetIndex = getRandomInt(4) 
-                if(characterSetIndex === 0){
-                    //select from numbers
-                  newChar = numbers[getRandomInt]  
-                } 
-                else if(characterSetIndex === 1){
+    <script type="text/javascript">
+        function init() {
+            console.log("startscript");
 
+
+
+            function randomPassword() {
+                console.log("calling random password");
+                //numbers array
+                const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
+                //upper case array
+                const lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
+                //lower case array
+                const upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
+                //special characters array
+                const specialCharacters = ["!", "@", "$", "%", "&"];
+                //make password length ( 8 characters - 126 characters)
+                let passLength = 8;
+                //text box for length of password
+                let passwordResult = "";
+
+                //validate text box has 8-128 numbers
+                //read character set selection in combo box
+                //produce random password
+                //forloop 0 to passlength 
+                //forloop taken from  https://www.w3schools.com/js/js_loop_for.asp
+                let i; 
+                for (i = 0; i < passLength; i++) {
+                    let newChar = "a"; 
+                    //choice random letter collection
+                    let characterSetIndex = getRandomInt(4)
+                    if (characterSetIndex === 0) {
+                        //select from numbers
+                        newChar = numbers[getRandomInt(10)]
+                    }
+                    else if (characterSetIndex === 1) {
+                        newChar = lowerCase[getRandomInt(26)]
+                    }
+
+                    else if (characterSetIndex === 2) {
+                        newChar = upperCase[getRandomInt(26)]
+                    }
+
+                    else if (characterSetIndex === 3) {
+                        newChar = specialCharacters[getRandomInt(5)]
+                    }
+                    //choice random index in array
+                    //choice is appended to password
+                    passwordResult = passwordResult + newChar;
+                    console.log(passwordResult);
                 }
-                //choice random index in array
-                //choice is appended to password
 
-            }
-         
-        }
 
-        //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-        function getRandomInt(max) {
 
-            return Math.floor(Math.random() * Math.floor(max));
-        }
 
-        //numbers array
-        const numbers = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
-        //upper case array
-        const lowerCase = ["a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m", "n", "o", "p", "q", "r", "s", "t", "u", "v", "w", "x", "y", "z"];
-        //lower case array
-        const upperCase = ["A", "B", "C", "D", "E", "F", "G", "H", "I", "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "W", "X", "Y", "Z"];
-        //special characters array
-        const specialCharacters = ["!", "@", "$", "%", "&"];
-        //make password length ( 8 characters - 126 characters)
-        let passLength = 8
-        //text box for length of password
-        let passwordResult; 
 
+            } window.randomPassword = randomPassword;
+
+            //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+            function getRandomInt(max) {
+                return Math.floor(Math.random() * Math.floor(max));
+            } window.getRandomInt = getRandomInt;
+
+        }  init();
     </script>
 </body>
 
