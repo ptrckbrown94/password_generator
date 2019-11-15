@@ -28,7 +28,7 @@
         <form>
             <div>
                 <h4>Enter Password Length</h4>
-                <input type="text" name="passwordlength" onchange="">
+                <input type="text" id="lengthText" name="passwordlength" onchange="lengthChanged(this)" value ="10">
             </div>
 
             <div>
@@ -38,20 +38,19 @@
                 <input type="checkbox" name="hasLower" onchange="toggleLower(this)">Lower Case<br>
                 <input type="checkbox" name="hasUpper" onchange="toggleUpper(this)">Upper Case<br>
                 <input type="checkbox" name="hasSpecial" onchange="toggleSpecial(this)">special characters<br>
-            </div>  
+            </div>
         </form>
         <button type="button" class="btn btn-primary" onclick="checkParams()">Generate Password</button>
-  
+
 
         <!--Jumbotron from Bootstrap-->
         <div class="jumbotron jumbotron-fluid">
             <div class="row">
-                <h1 class="display-4">New Password</h1>
-                <p class="lead">New Password</p>
+                <div class="col-12 justify-content-center">
+                    <p class="lead" id="passwordResultText">New Password</p>
+                </div>
             </div>
         </div>
-
-
 
 
 
@@ -64,11 +63,11 @@
         function init() {
             console.log("startscript");
 
-                let userLength = 9//user input
-                let userWantsNumbers = false //checkbox for numbers
-                let userWantsLower = false //checkbox for lower 
-                let userWantsUpper = false // checkbox for uppper 
-                let userWantsSpecial = false // specail characters
+            let userLength = 10//user input
+            let userWantsNumbers = false //checkbox for numbers
+            let userWantsLower = false //checkbox for lower 
+            let userWantsUpper = false // checkbox for uppper 
+            let userWantsSpecial = false // specail characters
 
 
 
@@ -95,12 +94,17 @@
                 let i;
                 while (passwordResult.length < passLength) {
                     let newChar = "";
+
+                    if (!(hasNumbers || hasLower || hasUpper || hasSpecial)) {
+                        break;
+                    }
+
                     //choice random letter collection
                     let characterSetIndex = getRandomInt(4)
 
                     if (characterSetIndex === 0) {
                         //select from numbers
-                        if (hasNumbers){
+                        if (hasNumbers) {
                             newChar = numbers[getRandomInt(10)]
                         }
                     }
@@ -118,7 +122,7 @@
                     }
 
                     else if (characterSetIndex === 3) {
-                        if (specialCharacters) {
+                        if (hasSpecial) {
                             newChar = specialCharacters[getRandomInt(5)]
                         }
                     }
@@ -128,44 +132,54 @@
                     console.log(passwordResult, passwordResult.length);
                 }
 
+                let jumboText = document.getElementById("passwordResultText");
+                jumboText.textContent = passwordResult
             }
 
             function checkParams() {
                 console.log("checking params")
                 //get the users inputs
-             
+
                 randomPassword(userLength, userWantsNumbers, userWantsLower, userWantsUpper, userWantsSpecial)
             }
 
-            function toggleNumber(element){
-                userWantsNumbers = element.checked; 
+            function toggleNumber(element) {
+                userWantsNumbers = element.checked;
                 if (element.checked) {
                     console.log("elementchecked")
                 }
             }
 
-            function toggleLower(element){
-                userWantsLower = element.checked; 
+            function toggleLower(element) {
+                userWantsLower = element.checked;
                 if (element.checked) {
                     console.log("elementchecked")
                 }
             }
 
-            function toggleUpper(element){
-                userWantsUpper = element.checked; 
+            function toggleUpper(element) {
+                userWantsUpper = element.checked;
                 if (element.checked) {
                     console.log("elementchecked")
                 }
             }
 
-            function toggleSpecial(element){
-                userWantsSpecial = element.checked; 
+            function toggleSpecial(element) {
+                userWantsSpecial = element.checked;
                 if (element.checked) {
                     console.log("elementchecked")
                 }
             }
 
-            
+            function lengthChanged(element) {
+                userLength = element.value;
+                if (userLength >250) {
+                    userLength = 10
+                    element.value = 10
+                } 
+                console.log(element.value)
+            }
+
 
 
             window.randomPassword = randomPassword;
@@ -175,11 +189,12 @@
             window.toggleLower = toggleLower;
             window.toggleUpper = toggleUpper;
             window.toggleSpecial = toggleSpecial;
+            window.lengthChanged = lengthChanged;
 
             //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
             function getRandomInt(max) {
                 return Math.floor(Math.random() * Math.floor(max));
-            } 
+            }
 
         } init();
     </script>
