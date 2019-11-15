@@ -14,31 +14,46 @@
 <body>
     <div class="container">
 
-        <div>
+        <div class="row">
             <div class="col-12 justify-content-center">
-                <header>Generate Password</header>
+                <header>
+                    <h1>Password Generator</h1>
+                </header>
+            </div>
+        </div>
+        <br>
+        <br>
+        <h3>Password Attributies</h3>
+
+        <form>
+            <div>
+                <h4>Enter Password Length</h4>
+                <input type="text" name="passwordlength" onchange="">
+            </div>
+
+            <div>
+                <h4>Choose Character Set</h4>
+                <!--check boxes from bootstrap-->
+                <input type="checkbox" name="hasNumbers" onchange="toggleNumber(this)">Numbers<br>
+                <input type="checkbox" name="hasLower" onchange="toggleLower(this)">Lower Case<br>
+                <input type="checkbox" name="hasUpper" onchange="toggleUpper(this)">Upper Case<br>
+                <input type="checkbox" name="hasSpecial" onchange="toggleSpecial(this)">special characters<br>
+            </div>  
+        </form>
+        <button type="button" class="btn btn-primary" onclick="checkParams()">Generate Password</button>
+  
+
+        <!--Jumbotron from Bootstrap-->
+        <div class="jumbotron jumbotron-fluid">
+            <div class="row">
+                <h1 class="display-4">New Password</h1>
+                <p class="lead">New Password</p>
             </div>
         </div>
 
-        <form action="/action_page.php">
-            <input type="checkbox" name="vehicle1" value="Bike">Numbers<br>
-            <input type="checkbox" name="vehicle2" value="Car">Lower Case<br>
-            <input type="checkbox" name="vehicle2" value="Car">Upper Case<br>
-            <input type="checkbox" name="vehicle2" value="Car">special characters<br>
-            <input type="submit" value="Generate Password">
-        </form>
-        
-        <!--Jumbotron from Bootstrap-->
-        <div class="jumbotron jumbotron-fluid">
-                <div class="row">
-                  <h1 class="display-4">New Password</h1>
-                  <p class="lead">New Password</p>
-                </div>
-              </div>
 
 
-        <input type="text" name="other">
-        <button onclick="checkParams()">Generate Password</button>
+
 
 
     </div>
@@ -49,7 +64,11 @@
         function init() {
             console.log("startscript");
 
-
+                let userLength = 9//user input
+                let userWantsNumbers = false //checkbox for numbers
+                let userWantsLower = false //checkbox for lower 
+                let userWantsUpper = false // checkbox for uppper 
+                let userWantsSpecial = false // specail characters
 
 
 
@@ -74,17 +93,20 @@
                 //forloop 0 to passlength 
                 //forloop taken from  https://www.w3schools.com/js/js_loop_for.asp
                 let i;
-                for (i = 0; passwordResult.length < passLength; i++) {
+                while (passwordResult.length < passLength) {
                     let newChar = "";
                     //choice random letter collection
                     let characterSetIndex = getRandomInt(4)
 
                     if (characterSetIndex === 0) {
                         //select from numbers
-                        newChar = numbers[getRandomInt(10)]
+                        if (hasNumbers){
+                            newChar = numbers[getRandomInt(10)]
+                        }
                     }
+
                     else if (characterSetIndex === 1) {
-                        if (hasUpper) {
+                        if (hasLower) {
                             newChar = lowerCase[getRandomInt(26)]
                         }
                     }
@@ -109,24 +131,68 @@
             }
 
             function checkParams() {
+                console.log("checking params")
                 //get the users inputs
-                const userLength = 9//user input
-                const userWantsNumbers = true //checkbox for special character
-                const userWantsLower = true
-                const userWantsUpper = true
-                const userWantsSpecial = true
+             
                 randomPassword(userLength, userWantsNumbers, userWantsLower, userWantsUpper, userWantsSpecial)
             }
 
+            function toggleNumber(element){
+                userWantsNumbers = element.checked; 
+                if (element.checked) {
+                    console.log("elementchecked")
+                }
+            }
+
+            function toggleLower(element){
+                userWantsLower = element.checked; 
+                if (element.checked) {
+                    console.log("elementchecked")
+                }
+            }
+
+            function toggleUpper(element){
+                userWantsUpper = element.checked; 
+                if (element.checked) {
+                    console.log("elementchecked")
+                }
+            }
+
+            function toggleSpecial(element){
+                userWantsSpecial = element.checked; 
+                if (element.checked) {
+                    console.log("elementchecked")
+                }
+            }
+
+            
+
+
             window.randomPassword = randomPassword;
             window.checkParams = checkParams;
+            window.getRandomInt = getRandomInt;
+            window.toggleNumber = toggleNumber;
+            window.toggleLower = toggleLower;
+            window.toggleUpper = toggleUpper;
+            window.toggleSpecial = toggleSpecial;
+
             //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
             function getRandomInt(max) {
                 return Math.floor(Math.random() * Math.floor(max));
-            } window.getRandomInt = getRandomInt;
+            } 
 
         } init();
     </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
 </body>
 
 </html>
